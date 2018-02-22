@@ -48,8 +48,14 @@ namespace Nethereum.JsonRpc.IpcClient
         private void HandleRpcError(RpcResponseMessage response)
         {
             if (response.HasError)
-                throw new RpcResponseException(new RpcError(response.Error.Code, response.Error.Message,
-                    response.Error.Data));
+            {
+                // Geth reporting unknown transaction error. Should not be an exception.
+                if (response.Error.Code != -32000)
+                {
+                    throw new RpcResponseException(new RpcError(response.Error.Code, response.Error.Message,
+                        response.Error.Data));
+                }
+            }
         }
 
         public override async Task SendRequestAsync(RpcRequest request, string route = null)

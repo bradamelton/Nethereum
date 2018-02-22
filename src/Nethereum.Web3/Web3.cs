@@ -40,7 +40,7 @@ namespace Nethereum.Web3
 
         public Web3(string url = @"http://localhost:8545/")
         {
-            IntialiseDefaultRpcClient(url);
+            InitialiseDefaultRpcClient(url);
             InitialiseInnerServices();
             IntialiseDefaultGasAndGasPrice();
         }
@@ -103,7 +103,7 @@ namespace Nethereum.Web3
             Personal = new PersonalApiService(Client);   
         }
 
-        private void IntialiseDefaultRpcClient(string url)
+        private void InitialiseDefaultRpcClient(string url)
         {
             Client = new RpcClient(new Uri(url));
         }
